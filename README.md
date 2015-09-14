@@ -1,7 +1,8 @@
 # Portal 2.x Alpha
-Portal: An opinionated application platform written in CoffeeScript, designed to run on Amazon AWS Services, with minimal external dependencies used at production runtime, centered around `yield`/`generator`.
+Portal: Portal = An opinionated Application Platform built on Amazon AWS + CoffeeScript + yield/generators and stream flow control.
 
 This repository is incomplete and considered unstable, so it is not yet ready for production use.
+====
 
 Server Side Libraries Only:
 `require 'portal/.coffee'`

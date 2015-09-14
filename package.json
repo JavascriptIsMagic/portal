@@ -1,0 +1,35 @@
+{
+  "name": "portal",
+  "version": "2.0.0-alpha",
+  "description": "Portal = A highly opinionated Application Platform built on Amazon AWS + CoffeeScript(cjsx) + React + Semantic-UI + yield/generators and stream flow control, designed to scale with a minimal runtime footprint.",
+  "main": "server.js",
+  "scripts": {
+    "test": "cake test",
+    "build": "cake build",
+    "start": "coffee lib/server.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javascriptismagic/portal.git"
+  },
+  "keywords": [
+    "portal",
+    "portaljs",
+    "coffee",
+    "coffee-script",
+    "cjsx",
+    "stack",
+    "app",
+    "platform",
+    "async",
+    "generators",
+    "yield",
+    "co"
+  ],
+  "author": "Brian <javascriptismagic@gmail.com>",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/javascriptismagic/portal/issues"
+  },
+  "homepage": "https://github.com/javascriptismagic/portal#readme"
+}
