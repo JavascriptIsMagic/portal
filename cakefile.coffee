@@ -70,7 +70,7 @@ module.exports = (projectDirectory = __dirname, buildDirectory = projectDirector
 
   streamify = require 'gulp-streamify'
   config = (require "srv/#{pkg.name}.json").AWS
-  s3 = (require 'gulp-s3-upload') config
+  s3 = try (require 'gulp-s3-upload') config
 
   s3Options =
     Bucket: 'filecontent'
@@ -120,7 +120,7 @@ module.exports = (projectDirectory = __dirname, buildDirectory = projectDirector
   task 'build', 'Browserify all the things!', ['build:clean'], (options, callback) ->
     #invoke 'build:version', options
     invoke 'build:public', options
-    invoke 'build:bake', options
+    invoke 'build:less', options
     invoke 'build:launch', options
     if options.docs
       invoke 'docs', options
@@ -229,28 +229,28 @@ module.exports = (projectDirectory = __dirname, buildDirectory = projectDirector
     return stream
 
 
-  task 're:bake', 'Bakes Email And PDF Templates Again', ['build:less'], (options, callback) ->
-    log "[#{green 'Baking'}] template files..."
-    css = fs.readFileSync sources.style
-    filename = "#{sources.build}/templates.coffee"
-    try fs.mkdirSync sources.build
-    fs.writeFileSync filename, "module.exports = \n"
-    for templateFileName in fs.readdirSync "#{projectDirectory}/templates" when /\.cjsx$/.test templateFileName
-      templateName = templateFileName.replace /\.cjsx$/, ''
-      bakedTemplate = JSON.stringify juice.inlineContent("#{fs.readFileSync "#{projectDirectory}/templates/#{templateFileName}"}", "#{semanticCSS}#{css}")
-      variables = {}
-      bakedTemplate.replace /#{[^}]+}/g, (match) ->
-        match.replace /\w+/g, (variable) ->
-          variables[variable] = true
-      fs.appendFileSync filename, "  #{JSON.stringify templateName}: ({#{ Object.keys(variables).join ',' }}) -> #{bakedTemplate}\n"
-    log "[#{green 'Baking'}] Complete"
-    callback()
-
-  task 'build:bake', 'Bakes Email And PDF Templates', ['re:bake'], (options, callback) ->
-    if options.watch
-      log "[#{green 'Watching'}] *.less files..."
-      watch sources.bake, { interval: 997 }, ['re:bake']
-    callback()
+  # task 're:bake', 'Bakes Email And PDF Templates Again', ['build:less'], (options, callback) ->
+  #   log "[#{green 'Baking'}] template files..."
+  #   css = fs.readFileSync sources.style
+  #   filename = "#{sources.build}/templates.coffee"
+  #   try fs.mkdirSync sources.build
+  #   fs.writeFileSync filename, "module.exports = \n"
+  #   for templateFileName in fs.readdirSync "#{projectDirectory}/templates" when /\.cjsx$/.test templateFileName
+  #     templateName = templateFileName.replace /\.cjsx$/, ''
+  #     bakedTemplate = JSON.stringify juice.inlineContent("#{fs.readFileSync "#{projectDirectory}/templates/#{templateFileName}"}", "#{semanticCSS}#{css}")
+  #     variables = {}
+  #     bakedTemplate.replace /#{[^}]+}/g, (match) ->
+  #       match.replace /\w+/g, (variable) ->
+  #         variables[variable] = true
+  #     fs.appendFileSync filename, "  #{JSON.stringify templateName}: ({#{ Object.keys(variables).join ',' }}) -> #{bakedTemplate}\n"
+  #   log "[#{green 'Baking'}] Complete"
+  #   callback()
+  #
+  # task 'build:bake', 'Bakes Email And PDF Templates', ['re:bake'], (options, callback) ->
+  #   if options.watch
+  #     log "[#{green 'Watching'}] *.less files..."
+  #     watch sources.bake, { interval: 997 }, ['re:bake']
+  #   callback()
 
   ###
   LAUNCH INVOKE
