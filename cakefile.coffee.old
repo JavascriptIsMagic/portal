@@ -172,15 +172,6 @@ module.exports = (projectDirectory = __dirname, buildDirectory = projectDirector
     rebuild()
 
   ###
-  LOGS INVOKE
-  ###
-  task 'build:logs', 'pm2 logs for server', (options, callback) ->
-    log "[#{green 'pm2 logs'}]"
-    spawn 'pm2', ["logs", "#{pkg.name}"], stdio: "inherit"
-    callback()
-
-
-  ###
   PUBLIC INVOKE
   ###
 

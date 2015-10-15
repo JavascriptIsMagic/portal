@@ -31,5 +31,13 @@
   "bugs": {
     "url": "https://github.com/javascriptismagic/portal/issues"
   },
-  "homepage": "https://github.com/javascriptismagic/portal#readme"
+  "homepage": "https://github.com/javascriptismagic/portal#readme",
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "cake-gulp": "^0.5.1",
+    "coffee-reactify": "^4.0.0",
+    "minifyify": "^7.0.6",
+    "watchify": "^3.4.0"
+  }
 }
